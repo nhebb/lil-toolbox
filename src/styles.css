@@ -1,2 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.css';
+
+.bigly {
+    font-size:1.2em;
+    font-weight:bold;
+}
+
+textarea.code-box {
+    resize: both;
+    overflow: auto;
+    padding: 10px;
+    height: 200px;
+    line-height: 1.3;
+    width: 100%;
+    font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;
+    font-size: 14px;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+}
