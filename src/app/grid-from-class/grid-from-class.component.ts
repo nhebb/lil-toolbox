@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WpfGridService } from '../wpf-grid.service';
-import { InputOutputComponent } from '../input-output/input-output.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-grid-from-class',
@@ -8,17 +8,18 @@ import { InputOutputComponent } from '../input-output/input-output.component';
   styleUrls: ['./grid-from-class.component.css']
 })
 export class GridFromClassComponent implements OnInit {
-  gridService: WpfGridService;
+  inputText: string;
+  outputText: string;
 
-  constructor(gridService: WpfGridService) {
-    this.gridService = gridService;
-   }
+  constructor(private gridService: WpfGridService) {}
 
   ngOnInit(): void {
+    this.inputText = '';
+    this.outputText = '';
   }
 
-  create() {
-    let result = this.gridService.create()
+  createGrid(value: string) {
+    this.outputText = this.gridService.create(value);
   }
 
 }

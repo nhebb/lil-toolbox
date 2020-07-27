@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-input-output',
@@ -7,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InputOutputComponent implements OnInit {
 
-  inputText: string;
-  outputText: string;
+  public inputText: string;
+  public outputText: string;
 
   constructor() { }
 
@@ -16,5 +17,13 @@ export class InputOutputComponent implements OnInit {
     this.inputText = '';
     this.outputText = '';
   }
+
+  // getInputText(): string {
+  //   return this.inputText;
+  // }
+
+  // setOutputText(text: string): void {
+  //   this.outputText = text;
+  // }
 
 }

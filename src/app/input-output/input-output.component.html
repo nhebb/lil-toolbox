@@ -6,7 +6,7 @@
     </div>
     <div class="col-6">
         <label>Generated Output:</label>
-        <textarea class="code-box" rows="8" cols="50"
-            [placeholder]="outputText.trim().length > 0 ? '' : 'Generated output will appear here.'">{{outputText}}</textarea>        
+        <textarea class="code-box" [(ngModel)]="outputText" rows="8" cols="50"
+            [placeholder]="outputText.trim().length > 0 ? '' : 'Generated output will appear here.'"></textarea>        
     </div>
 </div>

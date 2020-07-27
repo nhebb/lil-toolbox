@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { Observable, of } from 'rxjs';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -9,7 +7,7 @@ export class WpfGridService {
 
   constructor() { }
 
-  create(input: string): Observable<string> {
+  create(input: string): string {
     const labelTemplate = '<Label Grid.Row="gridrow" Grid.Column="gridcol" Content="content" />';
     const controlTemplate = '<controlType x:Name="controlName" Grid.Row="gridrow" Grid.Column="gridcol" />';
 
@@ -36,7 +34,7 @@ export class WpfGridService {
       const parts = txt.split(' ');
       if (parts.length < 2)
       {
-          output.push('//' + txt);
+          output.push('// ' + txt);
           continue;
       }
 
@@ -62,6 +60,6 @@ export class WpfGridService {
                                  .replace('controlName', parts[1]));
     }
 
-    return of(output.join('\r\n'));
+    return output.join('\r\n');
   }
 }
