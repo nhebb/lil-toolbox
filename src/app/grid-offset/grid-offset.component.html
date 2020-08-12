@@ -1,15 +1,39 @@
 <h3>Offset XAML Grid.Row's or Grid.Column's</h3>
 <p>This is used when you want to insert or delete rows from a XAML Grid. Input a XAML block, select the offset type, and enter the offset value. Use a negative offset value to shift rows up or columns to the left.</p>
-<div class="row">
-   <div class="col-6">
-      <label>Input:</label>
-      <textarea ref-inputTextArea class="code-box" [(ngModel)]="inputText" rows="8" cols="50" placeholder="Input code goes here ...">
-      </textarea>
+<form [formGroup]="offsetForm" (ngSubmit)="onSubmit(offsetForm)">
+   <div class="row">
+      <div class="col-6">
+         <label>Input:</label>
+         <textarea class="code-box" formControlName="inputText" rows="8" cols="50" placeholder="Input code goes here ..."></textarea>
+      </div>
+      <div class="col-6">
+         <label>Generated Output:</label>
+         <textarea class="code-box" formControlName="outputText" rows="8" cols="50"
+         placeholder="Generated output will appear here."></textarea>
+      </div>
    </div>
-   <div class="col-6">
-      <label>Generated Output:</label>
-      <textarea ref-outputTextArea  class="code-box" [(ngModel)]="outputText" rows="8" cols="50"
-      [placeholder]="outputText.trim().length > 0 ? '' : 'Generated output will appear here.'"></textarea>
+   <div class="row">
+      <div class="col-6">
+         <h6>Offset direction:</h6>
+         <div class="form-check">            
+            <input class="form-check-input" type="radio" formControlName="direction" id="directionRow" value="Row" checked>
+            <label class="form-check-label" for="directionRow">Row</label>
+         </div>
+         <div class="form-check">
+            <input class="form-check-input" type="radio" formControlName="direction" id="directionColumn" value="Column">
+            <label class="form-check-label" for="directionColumn">Column</label>
+         </div>
+      </div>
+      <div class="col-6">
+         <div class="form-group inline-label-group">
+            <label for="gridOffset">Offset amount:</label>
+            <input class="form-control" type="number" formControlName="offset" id="gridOffset">
+         </div>
+         <div class="form-group inline-label-group">
+            <label for="gridStartIndex">Start index:</label>
+            <input class="form-control" type="number" formControlName="startIndex" id="gridStartIndex">
+         </div>
+      </div>
    </div>
-</div>
-<button type="button" class="btn btn-primary" (click)="offsetGrid(inputTextArea.value)">Offset  Grid</button>
+   <button type="submit" class="btn btn-primary" >Offset  Grid</button>
+</form>

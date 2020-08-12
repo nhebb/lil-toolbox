@@ -58,6 +58,8 @@ export class WpfGridService {
                                  .replace('gridrow', (row + 1).toString(10))
                                  .replace('gridcol', col.toString(10))
                                  .replace('controlName', parts[1]));
+
+      row += 2;
     }
 
     return output.join('\r\n');
@@ -72,41 +74,47 @@ export class WpfGridService {
 
     for (const line of lines)
     {
-        const pos = line.indexOf(direction);
-        if (pos > 0)
+      const pos = line.indexOf(direction);
+      if (pos > 0)
+      {
+        const pos1 = line.indexOf(q, pos);
+        if (pos1 < 0)
         {
-            const pos1 = line.indexOf(q, pos);
-            if (pos1 < 0)
-            {
-                output.push(line);
-                continue;
-            }
+          output.push(line);
+          continue;
+        }
 
-            const pos2 = line.indexOf(q, pos1 + 1);
-            if (pos2 < 0)
-            {
-                output.push(line);
-                continue;
-            }
+        const pos2 = line.indexOf(q, pos1 + 1);
+        if (pos2 < 0)
+        {
+          output.push(line);
+          continue;
+        }
 
-            const oldVal = line.substring(pos1 + 1, pos2 - pos1 - 1);
-            let index = parseInt(oldVal, 10);
-            if (!isNaN(index) && index >= startIndex)
-            {
-                index += offset;
-                const oldIndex = direction + `"${oldVal}"`;
-                const newIndex = direction + `"${index}"`;
-                output.push(line.replace(oldIndex, newIndex));
-            }
-            else
-            {
-                output.push(line);
-            }
+        console.log('pos1, pos2:' + pos1 + ', ' + pos2);
+
+        const oldVal = line.substring(pos1 + 1, pos2);
+
+        console.log('oldVal: ' + oldVal);
+
+        let index = parseInt(oldVal, 10);
+        if (!isNaN(index) && index >= +startIndex)
+        {
+          index += +offset;
+          console.log('before: ' + oldVal + ', newVal: ' + index);
+          const oldIndex = direction + `"${oldVal}"`;
+          const newIndex = direction + `"${index}"`;
+          output.push(line.replace(oldIndex, newIndex));
         }
         else
         {
-            output.push(line);
+          output.push(line);
         }
+      }
+      else
+      {
+        output.push(line);
+      }
     }
     return output.join('\r\n');
   }

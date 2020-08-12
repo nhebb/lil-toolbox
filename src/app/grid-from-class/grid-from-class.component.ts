@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+
 import { WpfGridService } from '../wpf-grid.service';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-grid-from-class',
