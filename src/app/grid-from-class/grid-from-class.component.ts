@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { WpfGridService } from '../wpf-grid.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-grid-from-class',
@@ -8,18 +9,19 @@ import { WpfGridService } from '../wpf-grid.service';
   styleUrls: ['./grid-from-class.component.css']
 })
 export class GridFromClassComponent implements OnInit {
-  inputText: string;
-  outputText: string;
+  gridForm = new FormGroup({
+    inputText: new FormControl('', Validators.required),
+    outputText: new FormControl(''),
+  });
 
   constructor(private gridService: WpfGridService) {}
 
-  ngOnInit(): void {
-    this.inputText = '';
-    this.outputText = '';
-  }
+  ngOnInit(): void {}
 
-  createGrid(value: string) {
-    this.outputText = this.gridService.create(value);
-  }
+  onSubmit(form: FormGroup): void {
+    const input =  form.value.inputText;
+    const result = this.gridService.createGridFromClass(input);
 
+    form.patchValue({outputText: result});
+  }
 }

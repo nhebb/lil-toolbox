@@ -7,7 +7,7 @@ export class WpfGridService {
 
   constructor() { }
 
-  create(input: string): string {
+  createGridFromClass(input: string): string {
     const labelTemplate = '<Label Grid.Row="gridrow" Grid.Column="gridcol" Content="content" />';
     const controlTemplate = '<controlType x:Name="controlName" Grid.Row="gridrow" Grid.Column="gridcol" />';
 

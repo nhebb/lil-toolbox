@@ -1,19 +1,20 @@
-<!-- <app-input-output></app-input-output> -->
 <h3>Create Grid from Class</h3>
 <p>Input a C# POCO, and generate a baseline XAML grid. The default control type is TextBox.
    DateTimes will generate a DatePicker, and bools will generate a CheckBox, but for other 
    data types you will need to manually change the control type. The grid rows are created 
    in the order that they appear in the class.</p>
-<div class="row">
-   <div class="col-6">
+<form [formGroup]="gridForm" (ngSubmit)="onSubmit(gridFormForm)">
+   <div class="row">
+      <div class="col-6">
          <label>Input:</label>
-         <textarea ref-inputTextArea class="code-box" [(ngModel)]="inputText" rows="8" cols="50" placeholder="Input code goes here ...">
-         </textarea>        
-   </div>
-   <div class="col-6">
+         <textarea class="code-box" formControlName="inputText" rows="16" cols="50"
+          placeholder="Input code goes here ..."></textarea>
+      </div>
+      <div class="col-6">
          <label>Generated Output:</label>
-         <textarea ref-outputTextArea  class="code-box" [(ngModel)]="outputText" rows="8" cols="50"
-            [placeholder]="outputText.trim().length > 0 ? '' : 'Generated output will appear here.'"></textarea>
+         <textarea class="code-box" formControlName="outputText" rows="16" cols="50"
+          placeholder="Generated output will appear here."></textarea>
+      </div>
    </div>
-</div>
-<button type="button" class="btn btn-primary" (click)="createGrid(inputTextArea.value)">Create Grid</button>
+   <button type="submit" class="btn btn-primary" >Create Grid</button>
+</form>
