@@ -10,13 +10,15 @@ import { InputOutputComponent } from './input-output/input-output.component';
 import { FormStyle } from '@angular/common';
 import { GridFromClassComponent } from './grid-from-class/grid-from-class.component';
 import { GridOffsetComponent } from './grid-offset/grid-offset.component';
+import { BackingPropsGeneratorComponent } from './backing-props-generator/backing-props-generator.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InputOutputComponent,
     GridFromClassComponent,
-    GridOffsetComponent
+    GridOffsetComponent,
+    BackingPropsGeneratorComponent
   ],
   imports: [
     NgbModule,
