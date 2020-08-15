@@ -21,7 +21,7 @@ export class WpfGridService {
       const txt = line.replace('public', '')
                       .replace('{ get; set; }', '')
                       .trim();
-      if (txt.length === 0 || txt.indexOf('//') === 0){
+      if (txt.length === 0 || txt.indexOf('//')  || txt.indexOf('/*') === 0){
         continue;
       }
       else if (txt.length === 0){

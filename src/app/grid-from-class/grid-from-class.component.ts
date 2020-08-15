@@ -10,7 +10,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class GridFromClassComponent implements OnInit {
   gridForm = new FormGroup({
-    inputText: new FormControl('', Validators.required),
+    inputText: new FormControl('', [Validators.required]),
     outputText: new FormControl(''),
   });
 

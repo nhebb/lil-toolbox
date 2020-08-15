@@ -10,9 +10,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class GridOffsetComponent implements OnInit {
   offsetForm = new FormGroup({
-    inputText: new FormControl('', Validators.required),
+    inputText: new FormControl('', [Validators.required]),
     outputText: new FormControl(''),
-    direction: new FormControl('Row', Validators.required),
+    direction: new FormControl('Row', [Validators.required]),
     offset: new FormControl('1', [Validators.required, Validators.pattern('^[0-9]*$')]),
     startIndex: new FormControl('1', [Validators.required, Validators.pattern('^[0-9]*$')])
   });

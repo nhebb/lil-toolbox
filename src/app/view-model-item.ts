@@ -1,4 +1,4 @@
-export interface IViewModelItem {
+export class ViewModelItem {
     name: string;
     dataType: string;
     isButton: boolean;

@@ -17,13 +17,4 @@ export class InputOutputComponent implements OnInit {
     this.inputText = '';
     this.outputText = '';
   }
-
-  // getInputText(): string {
-  //   return this.inputText;
-  // }
-
-  // setOutputText(text: string): void {
-  //   this.outputText = text;
-  // }
-
 }
