@@ -12,7 +12,14 @@
          <textarea class="code-box" formControlName="outputText" rows="16" cols="50"
           placeholder="Generated output will appear here."></textarea>
       </div>
-      
+   </div>
+   <div class"row">
+      <div class="col-3">
+         <label>
+            <input type="checkbox" formControlName="threadsafe" checked>
+            Use threadsafe setter
+         </label>
+      </div>
    </div>
    <button type="submit" class="btn btn-primary" >Create Backing Props</button>
 </form>
