@@ -17,14 +17,14 @@ export class WpfGridService {
     let row = 1;
     let col = 0;
 
-    for (const line of lines){
+    for (const line of lines) {
       const txt = line.replace('public', '')
                       .replace('{ get; set; }', '')
                       .trim();
-      if (txt.length === 0 || txt.indexOf('//')  || txt.indexOf('/*') === 0){
+      if (txt.length === 0 || txt.indexOf('//')  || txt.indexOf('/*') === 0) {
         continue;
       }
-      else if (txt.length === 0){
+      else if (txt.length === 0) {
         row += 2;
         col = 0;
         output.push('');
@@ -32,8 +32,7 @@ export class WpfGridService {
       }
 
       const parts = txt.split(' ');
-      if (parts.length < 2)
-      {
+      if (parts.length < 2) {
           output.push('// ' + txt);
           continue;
       }
@@ -41,12 +40,10 @@ export class WpfGridService {
       if (parts[1] === 'Id') { continue; }
 
       let controlType = 'TextBox'; // default
-      if (parts[0].indexOf('DateTime') === 0)
-      {
+      if (parts[0].indexOf('DateTime') === 0) {
           controlType = 'DatePicker';
       }
-      else if (parts[0].indexOf('bool') === 0)
-      {
+      else if (parts[0].indexOf('bool') === 0) {
         controlType = 'CheckBox';
       }
 
@@ -72,21 +69,17 @@ export class WpfGridService {
 
     direction = 'Grid.' + direction + '=';
 
-    for (const line of lines)
-    {
+    for (const line of lines) {
       const pos = line.indexOf(direction);
-      if (pos > 0)
-      {
+      if (pos > 0) {
         const pos1 = line.indexOf(q, pos);
-        if (pos1 < 0)
-        {
+        if (pos1 < 0) {
           output.push(line);
           continue;
         }
 
         const pos2 = line.indexOf(q, pos1 + 1);
-        if (pos2 < 0)
-        {
+        if (pos2 < 0) {
           output.push(line);
           continue;
         }
@@ -98,21 +91,18 @@ export class WpfGridService {
         console.log('oldVal: ' + oldVal);
 
         let index = parseInt(oldVal, 10);
-        if (!isNaN(index) && index >= +startIndex)
-        {
+        if (!isNaN(index) && index >= +startIndex) {
           index += +offset;
           console.log('before: ' + oldVal + ', newVal: ' + index);
           const oldIndex = direction + `"${oldVal}"`;
           const newIndex = direction + `"${index}"`;
           output.push(line.replace(oldIndex, newIndex));
         }
-        else
-        {
+        else {
           output.push(line);
         }
       }
-      else
-      {
+      else {
         output.push(line);
       }
     }
