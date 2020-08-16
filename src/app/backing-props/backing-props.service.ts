@@ -8,7 +8,7 @@ export class BackingPropsService {
 
   constructor() { }
 
-  public createBackingProps(input: string, threadsae: boolean): string {
+  public createBackingProps(input: string, threadsafe: boolean): string {
     const viewModelItems = this.getViewModelItems(input);
     let output = this.generateCode(viewModelItems, threadsafe);
     if (output.length === 0) {
@@ -101,7 +101,7 @@ export class BackingPropsService {
       output.push('{');
       output.push('    throw new NotImplementedException();');
       output.push('}');
-      output.push();
+      output.push('');
       output.push('public void ' + item.name + '()');
       output.push('{');
       output.push('    throw new NotImplementedException();');
@@ -110,50 +110,56 @@ export class BackingPropsService {
   }
 
   private generateCollectionCode(item: ViewModelItem, output: string[], threadsafe: boolean): void {
-      const collectionBackingField = this.getBackingFieldName(item.name);
+    const indent = '    ';
+    const collectionBackingField = this.getBackingFieldName(item.name);
 
-      let selectedItemBackingField = '_selected' + item.name;
-      if (selectedItemBackingField.endsWith('s')) {
-          selectedItemBackingField = selectedItemBackingField.substring(0, selectedItemBackingField.length);
-      }
+    let selectedItemBackingField = '_selected' + item.name;
+    if (selectedItemBackingField.endsWith('s')) {
+        selectedItemBackingField = selectedItemBackingField.substring(0, selectedItemBackingField.length);
+    }
 
-      let selectedItemProperty = 'Selected' + item.name;
-      if (selectedItemProperty.endsWith('s')) {
-          selectedItemProperty = selectedItemProperty.substring(0, selectedItemProperty.length);
-      }
+    let selectedItemProperty = 'Selected' + item.name;
+    if (selectedItemProperty.endsWith('s')) {
+        selectedItemProperty = selectedItemProperty.substring(0, selectedItemProperty.length);
+    }
 
-      output.push('private BindableCollection<' + item.dataType + '> ' + 'collectionBackingField;');
-      output.push('public BindableCollection<' + item.dataType + '> ' + item.name);
-      output.push('{');
-      output.push('    get { return ' + collectionBackingField + '; }');
-      output.push('    set');
-      output.push('    {');
-      output.push('        ' + collectionBackingField + ' = value;');
-      output.push('        NotifyOfPropertyChange(() => ' + item.name + ');');
-      output.push('    }');
-      output.push('}');
-      output.push();
-      output.push('private ' + item.dataType + ' ' + selectedItemBackingField + ';');
-      output.push('public ' + item.dataType + ' ' + selectedItemProperty);
-      output.push('{');
-      output.push('    get { return ' + selectedItemBackingField + '; }');
-      output.push('    set');
-      output.push('    {');
-      if (threadsafe) {
-        output.push('        if (' + selectedItemBackingField + '== value) { return; }');
-        output.push();
-        output.push('        ' + selectedItemBackingField + ' = value;');
-        output.push('        NotifyOfPropertyChange(() => ' + selectedItemProperty + ');');
-      }
-      else {
-        output.push('        if (' + selectedItemBackingField + '== value) { return; }');
-        output.push();
-        output.push('        ' + selectedItemBackingField + ' = value;');
-        output.push('        NotifyOfPropertyChange(() => ' + selectedItemProperty + ');');
-      }
-      output.push('    }');
-      output.push('}');
-      output.push('');
+    output.push('private BindableCollection<' + item.dataType + '> ' + 'collectionBackingField;');
+    output.push('public BindableCollection<' + item.dataType + '> ' + item.name);
+    output.push('{');
+    output.push(indent + 'get { return ' + collectionBackingField + '; }');
+    output.push(indent + 'set');
+    output.push(indent + '{');
+    output.push(indent + indent + collectionBackingField + ' = value;');
+    output.push(indent + indent + 'NotifyOfPropertyChange(() => ' + item.name + ');');
+    output.push(indent + '}');
+    output.push('}');
+    output.push('');
+    output.push('private ' + item.dataType + ' ' + selectedItemBackingField + ';');
+    output.push('public ' + item.dataType + ' ' + selectedItemProperty);
+    output.push('{');
+    output.push(indent + 'get { return ' + selectedItemBackingField + '; }');
+    output.push(indent + 'set');
+    output.push(indent + '{');
+    output.push(indent + indent + 'if (' + selectedItemBackingField + '== value) { return; }');
+    output.push('');
+    if (threadsafe) {
+      output.push(indent + indent + 'var temp = value;');
+      output.push(indent + indent + 'if(' + selectedItemBackingField + ' != temp)');
+      output.push(indent + indent + '{');
+      output.push(indent + indent + indent + selectedItemBackingField + ' = temp;');
+      output.push(indent + indent + indent + 'NotifyOfPropertyChange(() => ' + selectedItemProperty + ');');
+      output.push(indent + indent + '}');
+    }
+    else {
+      output.push(indent + indent + 'if(' + selectedItemBackingField + ' != value)');
+      output.push(indent + indent + '{');
+      output.push(indent + indent + indent + selectedItemBackingField + ' = value;');
+      output.push(indent + indent + indent + 'NotifyOfPropertyChange(() => ' + selectedItemProperty + ');');
+      output.push(indent + indent + '}');
+    }
+    output.push(indent + '}');
+    output.push('}');
+    output.push('');
   }
 
   private generateStandardCode(item: ViewModelItem, output: string[], threadsafe: boolean): void {
@@ -166,17 +172,22 @@ export class BackingPropsService {
       output.push(indent + 'get { return ' + backingName + '; }');
       output.push(indent + 'set');
       output.push(indent + '{');
+      output.push(indent + indent + '        if (' + backingName + ' == value) { return; }');
+      output.push('');
       if (threadsafe) {
-        output.push(indent + indent + 'if (' + backingName + ' == value) { return; }');
-        output.push();
-        output.push(indent + indent + backingName + ' = value;');
-        output.push(indent + indent + 'NotifyOfPropertyChange(() => ' + item.name + ');');
+        output.push(indent + indent + 'var temp = value;');
+        output.push(indent + indent + 'if(' + backingName + ' != temp)');
+        output.push(indent + indent + '{');
+        output.push(indent + indent + indent + backingName + ' = temp;');
+        output.push(indent + indent + indent + 'NotifyOfPropertyChange(() => ' + item.name + ');');
+        output.push(indent + indent + '}');
       }
       else {
-        output.push(indent + indent + 'if (' + backingName + ' == value) { return; }');
-        output.push();
-        output.push(indent + indent + backingName + ' = value;');
-        output.push(indent + indent + 'NotifyOfPropertyChange(() => ' + item.name + ');');
+        output.push(indent + indent + 'if(' + backingName + ' != value)');
+        output.push(indent + indent + '{');
+        output.push(indent + indent + indent + backingName + ' = value;');
+        output.push(indent + indent + indent + 'NotifyOfPropertyChange(() => ' + item.name + ');');
+        output.push(indent + indent + '}');
       }
       output.push(indent + '}');
       output.push('}');
