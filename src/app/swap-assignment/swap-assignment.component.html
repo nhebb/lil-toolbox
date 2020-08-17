@@ -1,1 +1,19 @@
-<p>swap-assignment works!</p>
+<h3>Swap Assignment</h3>
+<p>When doing left-to-right copy (aka, Otto-mapper where your name is Otto), sometimes you need to 
+    flip the direction of the assignment statements in another part of the code base. 
+    This tool swaps assignment around the equals (=) sign.</p>
+<form [formGroup]="swapForm" (ngSubmit)="onSubmit(swapForm)">
+   <div class="row">
+      <div class="col-6">
+         <label>Input:</label>
+         <textarea class="code-box" formControlName="inputText" rows="16" cols="50"
+          placeholder="Input code goes here ..."></textarea>
+      </div>
+      <div class="col-6">
+         <label>Generated Output:</label>
+         <textarea class="code-box" formControlName="outputText" rows="16" cols="50"
+          placeholder="Generated output will appear here."></textarea>
+      </div>
+   </div>
+   <button type="submit" class="btn btn-primary" >Swap It</button>
+</form>
