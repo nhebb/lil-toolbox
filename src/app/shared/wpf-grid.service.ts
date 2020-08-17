@@ -15,18 +15,22 @@ export class WpfGridService {
     const output: string[] = [];
 
     let row = 1;
-    let col = 0;
+    const col = 1;
 
     for (const line of lines) {
       const txt = line.replace('public', '')
                       .replace('{ get; set; }', '')
                       .trim();
-      if (txt.length === 0 || txt.indexOf('//')  || txt.indexOf('/*') === 0) {
+      if (txt.length === 0 ||
+          txt.indexOf('//') ||
+          txt.indexOf('/*') === 0 ||
+          txt.charAt(0) === '{' ||
+          txt.charAt(0) === '}' ||
+          new RegExp('/\bclass\b/').test(txt)) {
         continue;
       }
       else if (txt.length === 0) {
         row += 2;
-        col = 0;
         output.push('');
         continue;
       }
