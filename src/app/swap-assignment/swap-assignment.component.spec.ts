@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InputOutputComponent } from './input-output.component';
+import { SwapAssignmentComponent } from './swap-assignment.component';
 
-describe('InputOutputComponent', () => {
-  let component: InputOutputComponent;
-  let fixture: ComponentFixture<InputOutputComponent>;
+describe('SwapAssignmentComponent', () => {
+  let component: SwapAssignmentComponent;
+  let fixture: ComponentFixture<SwapAssignmentComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InputOutputComponent ]
+      declarations: [ SwapAssignmentComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InputOutputComponent);
+    fixture = TestBed.createComponent(SwapAssignmentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
