@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { WpfGridService } from '../shared/wpf-grid.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-grid-offset',
@@ -9,27 +9,34 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./grid-offset.component.css']
 })
 export class GridOffsetComponent implements OnInit {
-  offsetForm = new FormGroup({
-    inputText: new FormControl('', [Validators.required]),
-    outputText: new FormControl(''),
-    direction: new FormControl('Row', [Validators.required]),
-    offset: new FormControl('1', [Validators.required, Validators.pattern('^[0-9]*$')]),
-    startIndex: new FormControl('1', [Validators.required, Validators.pattern('^[0-9]*$')])
-  });
+  myForm: FormGroup;
 
-  constructor(private gridService: WpfGridService) {}
+  constructor(private fb: FormBuilder, private gridService: WpfGridService) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.myForm = this.fb.group({
+      inputText: ['', Validators.required],
+      outputText: [''],
+      direction: ['Row', Validators.required],
+      offset: ['1', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      startIndex: ['1', [Validators.required, Validators.pattern('^[0-9]*$')]]
+    });
+  }
 
-  onSubmit(form: FormGroup): void {
-    const input =  form.value.inputText;
-    const direction = form.value.direction;
-    const offset = form.value.offset;
-    const startIndex = form.value.startIndex;
+  onSubmit(): void {
+    const input =  this.myForm.value.inputText;
+    const direction = this.myForm.value.direction;
+    const offset = this.myForm.value.offset;
+    const startIndex = this.myForm.value.startIndex;
+
+    // console.log(`
+    //   input: ${input}
+    //   direction: ${direction}
+    //   offset: ${offset}
+    //   startIndex: ${startIndex}`);
 
     const result = this.gridService.applyOffset(input, direction, offset, startIndex);
-
-    form.patchValue({outputText: result});
+    this.myForm.patchValue({outputText: result});
   }
 
 }

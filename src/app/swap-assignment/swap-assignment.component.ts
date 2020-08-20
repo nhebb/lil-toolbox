@@ -8,7 +8,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class SwapAssignmentComponent implements OnInit {
 
-  propsForm = new FormGroup({
+  swapForm = new FormGroup({
     inputText: new FormControl('', [Validators.required]),
     outputText: new FormControl('')
   });

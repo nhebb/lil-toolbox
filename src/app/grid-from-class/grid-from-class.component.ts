@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { WpfGridService } from '../shared/wpf-grid.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-grid-from-class',
@@ -9,19 +9,24 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./grid-from-class.component.css']
 })
 export class GridFromClassComponent implements OnInit {
-  gridForm = new FormGroup({
-    inputText: new FormControl('', [Validators.required]),
-    outputText: new FormControl(''),
-  });
+  myForm: FormGroup;
 
-  constructor(private gridService: WpfGridService) {}
+  constructor(private fb: FormBuilder, private gridService: WpfGridService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.myForm  = this.fb.group({
+      inputText: ['', Validators.required],
+      labelPlacement: ['left', Validators.required],
+      outputText: ['']
+    });
+  }
 
-  onSubmit(form: FormGroup): void {
-    const input =  form.value.inputText;
-    const result = this.gridService.createGridFromClass(input);
-
-    form.patchValue({outputText: result});
+  onSubmit(): void {
+    const input =  this.myForm.value.inputText;
+    const twoColumn = this.myForm.value.labelPlacement === 'left';
+    // console.log(`input: ${input}`);
+    const result = this.gridService.createGridFromClass(input, twoColumn);
+    console.log('result:\n' + result);
+    this.myForm.patchValue({outputText: result});
   }
 }

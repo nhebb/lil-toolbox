@@ -5,11 +5,6 @@
     margin-bottom: 1.5em;
 }
 
-.stronk {
-    font-size:1.1em;
-    font-weight:bold;
-}
-
 textarea.code-box {
     resize: both;
     overflow: auto;
@@ -27,4 +22,12 @@ textarea.code-box {
 .inline-label-group {
     display: flex;
     align-items: center;
+}
+
+.row {
+    margin-top: 5px;
+}
+
+button {
+    margin-top: 7px;
 }

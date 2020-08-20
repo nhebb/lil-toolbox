@@ -7,30 +7,36 @@ export class WpfGridService {
 
   constructor() { }
 
-  createGridFromClass(input: string): string {
+  createGridFromClass(input: string, twoColumn: boolean): string {
+    // console.log('createGridFromClass called.');
     const labelTemplate = '<Label Grid.Row="gridrow" Grid.Column="gridcol" Content="content" />';
     const controlTemplate = '<controlType x:Name="controlName" Grid.Row="gridrow" Grid.Column="gridcol" />';
 
     const lines = input.replace('\r\n', '\n').split('\n');
+    // console.log(lines);
     const output: string[] = [];
 
     let row = 1;
-    const col = 1;
+    const col = 1; // twoColumn ? 1 : 2;
+    const rowOffset = twoColumn ? 0 : 1;
+    const colOffset = twoColumn ? 1 : 0;
+    const rowIncrement = twoColumn ? 1 : 2;
 
     for (const line of lines) {
       const txt = line.replace('public', '')
                       .replace('{ get; set; }', '')
                       .trim();
       if (txt.length === 0 ||
-          txt.indexOf('//') ||
+          txt.indexOf('//') === 0 ||
           txt.indexOf('/*') === 0 ||
           txt.charAt(0) === '{' ||
           txt.charAt(0) === '}' ||
           new RegExp('/\bclass\b/').test(txt)) {
+        // console.log('line skipped: ' + line);
         continue;
       }
       else if (txt.length === 0) {
-        row += 2;
+        row += rowIncrement;
         output.push('');
         continue;
       }
@@ -41,8 +47,6 @@ export class WpfGridService {
           continue;
       }
 
-      if (parts[1] === 'Id') { continue; }
-
       let controlType = 'TextBox'; // default
       if (parts[0].indexOf('DateTime') === 0) {
           controlType = 'DatePicker';
@@ -52,15 +56,15 @@ export class WpfGridService {
       }
 
       output.push(labelTemplate.replace('gridrow', row.toString(10))
-                               .replace('gridcol', col.toString(10))
+                               .replace('gridcol', (col).toString(10))
                                .replace('content', parts[1]));
 
       output.push(controlTemplate.replace('controlType', controlType)
-                                 .replace('gridrow', (row + 1).toString(10))
-                                 .replace('gridcol', col.toString(10))
+                                 .replace('gridrow', (row + rowOffset).toString(10))
+                                 .replace('gridcol', (col + colOffset).toString(10))
                                  .replace('controlName', parts[1]));
 
-      row += 2;
+      row += rowIncrement;
     }
 
     return output.join('\r\n');
@@ -88,16 +92,16 @@ export class WpfGridService {
           continue;
         }
 
-        console.log('pos1, pos2:' + pos1 + ', ' + pos2);
+        // console.log('pos1, pos2:' + pos1 + ', ' + pos2);
 
         const oldVal = line.substring(pos1 + 1, pos2);
 
-        console.log('oldVal: ' + oldVal);
+        // console.log('oldVal: ' + oldVal);
 
         let index = parseInt(oldVal, 10);
         if (!isNaN(index) && index >= +startIndex) {
           index += +offset;
-          console.log('before: ' + oldVal + ', newVal: ' + index);
+          // console.log('before: ' + oldVal + ', newVal: ' + index);
           const oldIndex = direction + `"${oldVal}"`;
           const newIndex = direction + `"${index}"`;
           output.push(line.replace(oldIndex, newIndex));
