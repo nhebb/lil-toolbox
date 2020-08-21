@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-swap-assignment',
@@ -7,21 +7,21 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./swap-assignment.component.css']
 })
 export class SwapAssignmentComponent implements OnInit {
+  myForm: FormGroup;
 
-  swapForm = new FormGroup({
-    inputText: new FormControl('', [Validators.required]),
-    outputText: new FormControl('')
-  });
-
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.myForm = this.fb.group({
+      inputText: ['', Validators.required],
+      outputText: ['']
+    });
   }
 
-  onSubmit(form: FormGroup): void {
-    const input =  form.value.inputText;
+  onSubmit(): void {
+    const input =  this.myForm.value.inputText;
     const result = this.swapAssignment(input);
-    form.setValue({outputText: result});
+    this.myForm.patchValue({outputText: result});
   }
 
   private swapAssignment(input: string): string {
@@ -36,5 +36,12 @@ export class SwapAssignmentComponent implements OnInit {
       output.push(`${parts[1].trim()} = ${parts[0].trim()};`);
     }
     return output.join('\r\n');
+  }
+
+  copyText(outputElement: any) {
+    outputElement.select();
+    outputElement.setSelectionRange(0, 99999); // For mobile devices
+    document.execCommand('copy');
+    outputElement.setSelectionRange(0, 0);
   }
 }

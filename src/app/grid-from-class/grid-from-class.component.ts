@@ -26,7 +26,7 @@ export class GridFromClassComponent implements OnInit {
     const twoColumn = this.myForm.value.labelPlacement === 'left';
     // console.log(`input: ${input}`);
     const result = this.gridService.createGridFromClass(input, twoColumn);
-    console.log('result:\n' + result);
+    // console.log('result:\n' + result);
     this.myForm.patchValue({outputText: result});
   }
 }

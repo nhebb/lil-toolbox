@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { BackingPropsService  } from './backing-props.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-backing-props',
@@ -9,23 +9,23 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./backing-props.component.css']
 })
 export class BackingPropsComponent implements OnInit {
-  propsForm = new FormGroup({
-    inputText: new FormControl('', [Validators.required]),
-    outputText: new FormControl(''),
-    threadsafe: new FormControl('')
-  });
+  myForm: FormGroup;
 
-  constructor(private backingPropsService: BackingPropsService) { }
+  constructor(private fb: FormBuilder, private backingPropsService: BackingPropsService) { }
 
-  ngOnInit(): void {}
-
-  onSubmit(form: FormGroup): void {
-    const input =  form.value.inputText;
-    const threadsafe = form.value.threadsafe;
-
-    const result = this.backingPropsService.createBackingProps(input, threadsafe)
-
-    form.patchValue({outputText: result});
+  ngOnInit(): void {
+    this.myForm = this.fb.group({
+      inputText: ['', Validators.required],
+      outputText: [''],
+      threadsafe: ['']
+    });
   }
 
+  onSubmit(): void {
+    const input =  this.myForm.value.inputText;
+    const threadsafe = this.myForm.value.threadsafe === true;
+    // console.log('input: ' + input + '\nthreadsafe: ' + threadsafe);
+    const result = this.backingPropsService.createBackingProps(input, threadsafe);
+    this.myForm.patchValue({outputText: result});
+  }
 }

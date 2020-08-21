@@ -30,9 +30,13 @@ export class WpfGridService {
           txt.indexOf('//') === 0 ||
           txt.indexOf('/*') === 0 ||
           txt.charAt(0) === '{' ||
-          txt.charAt(0) === '}' ||
-          new RegExp('/\bclass\b/').test(txt)) {
-        // console.log('line skipped: ' + line);
+          txt.charAt(0) === '}') {
+        continue;
+      }
+      else if (line.indexOf(' class ') >= 0 || line.indexOf('class ') === 0) {
+        // could not get the following regex to work:
+        // new RegExp('/\bclass\b/').test(txt)
+        // console.log('position of " class ": ' + txt.indexOf('class') + '\nin text: ' + txt);
         continue;
       }
       else if (txt.length === 0) {
@@ -55,9 +59,12 @@ export class WpfGridService {
         controlType = 'CheckBox';
       }
 
+      // tslint:disable-next-line: only-arrow-functions
+      const label = parts[1].split(/([A-Z][a-z]+)/).filter(function(e){ return e; }).join(' ');
+
       output.push(labelTemplate.replace('gridrow', row.toString(10))
                                .replace('gridcol', (col).toString(10))
-                               .replace('content', parts[1]));
+                               .replace('content', label));
 
       output.push(controlTemplate.replace('controlType', controlType)
                                  .replace('gridrow', (row + rowOffset).toString(10))

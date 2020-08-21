@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ViewModelItem } from './view-model-item';
+import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,15 @@ export class BackingPropsService {
 
   public createBackingProps(input: string, threadsafe: boolean): string {
     const viewModelItems = this.getViewModelItems(input);
-    let output = this.generateCode(viewModelItems, threadsafe);
-    if (output.length === 0) {
-      output = '<invalid input>';
+    let output: string;
+    if (viewModelItems.length === 0) {
+      output = '<no view model items>';
+    }
+    else {
+      output = this.generateCode(viewModelItems, threadsafe);
+      if (output.length === 0) {
+        output = '<no code generated>';
+      }
     }
     return output;
   }
@@ -20,12 +27,12 @@ export class BackingPropsService {
   private getViewModelItems(input: string): ViewModelItem[] {
       const q = '"';
       const xName = 'x:Name';
-      const fields: ViewModelItem[] = [];
+      const items: ViewModelItem[] = [];
       const lines = input.replace('\r\n', '\n').split('\n');
 
       for (const line of lines) {
           const txt = line.trim();
-          if (txt.length === 0 || txt.indexOf('//')  || txt.indexOf('/*') === 0) {
+          if (txt.length === 0 || txt.indexOf('//') === 0  || txt.indexOf('/*') === 0) {
               continue;
           }
 
@@ -72,10 +79,11 @@ export class BackingPropsService {
               item.isButton = isButton;
               item.isCollectionElement = isCollectionElement;
 
-              fields.push(item);
+              items.push(item);
+              console.log('item added:\n' + item);
           }
       }
-      return fields;
+      return items;
   }
 
   private generateCode(viewModelItems: ViewModelItem[], threadsafe: boolean): string
@@ -140,8 +148,6 @@ export class BackingPropsService {
     output.push(indent + 'get { return ' + selectedItemBackingField + '; }');
     output.push(indent + 'set');
     output.push(indent + '{');
-    output.push(indent + indent + 'if (' + selectedItemBackingField + '== value) { return; }');
-    output.push('');
     if (threadsafe) {
       output.push(indent + indent + 'var temp = value;');
       output.push(indent + indent + 'if(' + selectedItemBackingField + ' != temp)');
@@ -172,8 +178,6 @@ export class BackingPropsService {
       output.push(indent + 'get { return ' + backingName + '; }');
       output.push(indent + 'set');
       output.push(indent + '{');
-      output.push(indent + indent + '        if (' + backingName + ' == value) { return; }');
-      output.push('');
       if (threadsafe) {
         output.push(indent + indent + 'var temp = value;');
         output.push(indent + indent + 'if(' + backingName + ' != temp)');
