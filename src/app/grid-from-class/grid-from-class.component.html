@@ -12,7 +12,7 @@
       </div>
       <div class="col-6">
          <label>Generated Output:</label>
-         <textarea class="code-box" formControlName="outputText" rows="16" cols="50" placeholder="Generated output will appear here."></textarea>
+         <textarea #outputElement class="code-box" formControlName="outputText" rows="16" cols="50" placeholder="Generated output will appear here."></textarea>
       </div>
    </div>
    <div class="row">
@@ -30,7 +30,14 @@
    </div>
    <div class="row">
       <div class="col-2">
-         <button type="submit" class="btn btn-primary">Create Grid</button>
       </div>
    </div>
+   <div class="row">
+      <div class="col-6">
+         <button type="submit" class="btn btn-primary">Create Grid</button>
+      </div>
+      <div class="col-6">
+         <button type="button" class="btn btn-success" (click)="copyText(outputElement)">Copy to Clipboard</button>
+      </div>
+   </div>   
 </form>

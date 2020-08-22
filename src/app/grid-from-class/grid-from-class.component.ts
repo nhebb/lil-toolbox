@@ -29,4 +29,12 @@ export class GridFromClassComponent implements OnInit {
     // console.log('result:\n' + result);
     this.myForm.patchValue({outputText: result});
   }
+
+  copyText(outputElement: any) {
+    outputElement.select();
+    outputElement.setSelectionRange(0, 99999); // For mobile devices
+    document.execCommand('copy');
+    outputElement.setSelectionRange(0, 0);
+  }
+
 }

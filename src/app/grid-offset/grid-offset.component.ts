@@ -29,14 +29,15 @@ export class GridOffsetComponent implements OnInit {
     const offset = this.myForm.value.offset;
     const startIndex = this.myForm.value.startIndex;
 
-    // console.log(`
-    //   input: ${input}
-    //   direction: ${direction}
-    //   offset: ${offset}
-    //   startIndex: ${startIndex}`);
-
     const result = this.gridService.applyOffset(input, direction, offset, startIndex);
     this.myForm.patchValue({outputText: result});
+  }
+
+  copyText(outputElement: any) {
+    outputElement.select();
+    outputElement.setSelectionRange(0, 99999); // For mobile devices
+    document.execCommand('copy');
+    outputElement.setSelectionRange(0, 0);
   }
 
 }

@@ -28,4 +28,12 @@ export class BackingPropsComponent implements OnInit {
     const result = this.backingPropsService.createBackingProps(input, threadsafe);
     this.myForm.patchValue({outputText: result});
   }
+
+  copyText(outputElement: any) {
+    outputElement.select();
+    outputElement.setSelectionRange(0, 99999); // For mobile devices
+    document.execCommand('copy');
+    outputElement.setSelectionRange(0, 0);
+  }
+
 }
