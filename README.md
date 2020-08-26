@@ -1,27 +1,18 @@
-# LilToolbox
+# Li'l Toolbox
+## A little toolbox of WPF-related utilities
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.
+<p>Github pages: https://github.com/nhebb/lil-toolbox
 
-## Development server
+### Create XAML Grid from Class
+Takes a C# POCO and generates a baseline XAML grid. It is intended to be used as a starting point, with control types changed as needed.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Offset XAML Grid.Row / Column
+Used to insert or delete rows or columns from a XAML Grid. Given a starting index and an offset value, you can quickly shift rows up or down, and columns left or right.
 
-## Code scaffolding
+### Create Backing Properties from XAML Grid (Caliburn.Micro)
+Creates the backing properties for binding controls in a given XAML input to the View Model. It makes assumptions about the appropriate data type based on the control type. Resulting code should be audited / edited after generation.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Swap Assignment
+This tool swaps assignment around the equals (=) sign, e.g.:
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+`class.Property = variable` => `variable = class.Property`.
