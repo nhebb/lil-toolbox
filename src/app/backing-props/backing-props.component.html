@@ -1,5 +1,5 @@
-<h3>Backing Props Generator</h3>
-<p>Creates the backing properties for binding controls in a given XAML input to the View Model. It makes assumptions about the appropriate data type based on the control type. Resulting code should be audited / edited after generation. This is not an XAML parser, so the x:Name element must be on the same line as the control type, e.g. &lt;DatePicker x:Name="BirthDay" ...</p>
+<h3>Backing Props Generator <span class="badge badge-warning">Caliburn.Micro</span></h3>
+<p>Creates the backing properties for binding controls in a given XAML input to the View Model, for use with <strong>Caliburn.Micro</strong>. It makes assumptions about the appropriate data type based on the control type. Resulting code should be audited / edited after generation. This is not an XAML parser, so the x:Name element must be on the same line as the control type, e.g. &lt;DatePicker x:Name="BirthDay" ...</p>
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
    <div class="row">
       <div class="col-6">
@@ -14,19 +14,19 @@
       </div>
    </div>
    <div class="row">
-      <div class="col-3">
+      <div class="col-6">
          <label>
             <input type="checkbox" formControlName="threadsafe">
             Use threadsafe setter
          </label>
       </div>
+      <div class="col-6 text-right">
+         <button type="button" class="btn btn-success" (click)="copyText(outputElement)">Copy to Clipboard</button>
+      </div>
    </div>
    <div class="row">
       <div class="col-6">
          <button type="submit" class="btn btn-primary" >Create Backing Props</button>
-      </div>
-      <div class="col-6">
-         <button type="button" class="btn btn-success" (click)="copyText(outputElement)">Copy to Clipboard</button>
       </div>
    </div>
 </form>

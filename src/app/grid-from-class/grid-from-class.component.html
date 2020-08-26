@@ -1,7 +1,7 @@
 <h3>Create Grid from Class</h3>
 <p>Input a C# POCO (public properties only) and generate a baseline XAML grid. The default control type is TextBox.
-   DateTimes will generate a DatePicker, and bools will generate a CheckBox, but for other 
-   data types you will need to manually change the control type. The grid rows are created 
+   DateTimes will generate a DatePicker, and bools will generate a CheckBox, but for other
+   data types you will need to manually change the control type. The grid rows are created
    in the order that they appear in the class. Row and Column numbering starts at 1, based on my personal preference
    to use the first row and column as a margin.</p>
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
@@ -27,6 +27,9 @@
             <label class="form-check-label" for="labelPlacementAbove">Above control (single column)</label>
          </div>
       </div>
+      <div class="col-6 text-right">
+         <button type="button" class="btn btn-success" (click)="copyText(outputElement)">Copy to Clipboard</button>
+      </div>
    </div>
    <div class="row">
       <div class="col-2">
@@ -36,8 +39,6 @@
       <div class="col-6">
          <button type="submit" class="btn btn-primary">Create Grid</button>
       </div>
-      <div class="col-6">
-         <button type="button" class="btn btn-success" (click)="copyText(outputElement)">Copy to Clipboard</button>
-      </div>
-   </div>   
+
+   </div>
 </form>

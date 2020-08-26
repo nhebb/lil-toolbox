@@ -1,5 +1,5 @@
 <h3>Offset XAML Grid.Row's or Grid.Column's</h3>
-<p>This is used when you want to insert or delete rows from a XAML Grid. Input a XAML block, 
+<p>This is used when you want to insert or delete rows from a XAML Grid. Input a XAML block,
    select the offset type, and enter the offset value and the index to start at. Use a negative offset
    value to shift rows up or columns to the left.</p>
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
@@ -26,22 +26,26 @@
          </div>
       </div>
       <div class="col-3">
-         <div class="form-group inline-label-group">
-            <label for="gridOffset">Offset amount:</label>
-            <input class="form-control" type="number" formControlName="offset" id="gridOffset">
+         <div class="form-group row">
+            <label class="col-sm-6 col-form-label" for="gridOffset">Offset value:</label>
+            <div class="col-sm-6">
+               <input class="form-control" type="number" formControlName="offset" id="gridOffset">
+            </div>
          </div>
-         <div class="form-group inline-label-group">
-            <label for="gridStartIndex">Start index:</label>
-            <input class="form-control" type="number" formControlName="startIndex" id="gridStartIndex">
+         <div class="form-group row">
+            <label class="col-sm-6 col-form-label" for="gridStartIndex">Start index:</label>
+            <div class="col-sm-6">
+               <input class="form-control" type="number" formControlName="startIndex" id="gridStartIndex">
+            </div>
          </div>
+      </div>
+      <div class="col-6 text-right">
+         <button type="button" class="btn btn-success" (click)="copyText(outputElement)">Copy to Clipboard</button>
       </div>
    </div>
    <div class="row">
       <div class="col-6">
          <button type="submit" class="btn btn-primary">Offset Grid</button>
       </div>
-      <div class="col-6">
-         <button type="button" class="btn btn-success" (click)="copyText(outputElement)">Copy to Clipboard</button>
-      </div>
-   </div>   
+   </div>
 </form>

@@ -1,16 +1,12 @@
-<h3>A little toolbox of WPF-related utilities</h3>
-<p>Github repo: <a href="https://github.com/nhebb/lil-toolbox">Li'l Toolbox</a></p>
-
-
-<h4>Create XAML Grid from Class</h4>
+<h2>Create XAML Grid from Class</h2>
 <p>Takes a C# POCO and generates a baseline XAML grid. It is intended to be used as a starting point, with control types changed as needed.</p>
 
-<h4>Offset XAML Grid.Row / Column</h4>
+<h2>Offset XAML Grid.Row / Column</h2>
 <p>Used to insert or delete rows or columns from a XAML Grid. Given a starting index and an offset value, you can quickly shift rows up or down, and columns left or right.</p>
 
-<h4>Create Backing Properties from XAML Grid</h4>
-<p>Creates the backing properties for binding controls in a given XAML input to the View Model. It makes assumptions about the appropriate data type based on the control type. Resulting code should be audited / edited after generation.</p>
+<h2>Create Backing Properties from XAML Grid</h2>
+<p>Creates the backing properties for binding controls in a given XAML input to the View Model, for use with <strong>Caliburn.Micro</strong>. It makes assumptions about the appropriate data type based on the control type. Resulting code should be audited / edited after generation.</p>
 
-<h4>Swap Assignment</h4>
+<h2>Swap Assignment</h2>
 <p>This tool swaps assignment around the equals (=) sign, e.g.:<br />
 <code>class.Property = variable</code> => <code>variable = class.Property</code>.</p>
