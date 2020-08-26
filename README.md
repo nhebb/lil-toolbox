@@ -37,7 +37,7 @@ Sample output:
 ## Offset XAML Grid.Row / Column
 Used to insert or delete rows or columns from a XAML Grid. Given a starting index and an offset value, you can quickly shift rows up or down, and columns left or right.
 
-Sample input with offset of 2 starting at index 4:
+Sample input with an offset of 2, starting at index 4:
 ```
 <Label Grid.Row="1" Grid.Column="1" Content="Id" />
 <TextBox x:Name="Id" Grid.Row="1" Grid.Column="2" />
