@@ -1,7 +1,9 @@
 # Li'l Toolbox
 ## A little toolbox of WPF-related utilities
 
-<p>Github pages: https://github.com/nhebb/lil-toolbox
+This project is a rewrite of some desktop utilities that I created when creating WPF apps. My primary objective was just to learn the basics of Angular and TypeScript, but hopefully someone will find these useful.
+
+Live Demo (Github pages): https://nhebb.github.io/lil-toolbox
 
 ## Create XAML Grid from Class
 Takes a C# POCO and generates a baseline XAML grid. It is intended to be used as a starting point, with control types changed as needed.
