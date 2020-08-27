@@ -7,17 +7,15 @@ export class WpfGridService {
 
   constructor() { }
 
-  createGridFromClass(input: string, twoColumn: boolean): string {
-    // console.log('createGridFromClass called.');
+  createGridFromClass(input: string, twoColumn: boolean, firstRow: number, firstColumn: number): string {
     const labelTemplate = '<Label Grid.Row="gridrow" Grid.Column="gridcol" Content="content" />';
     const controlTemplate = '<controlType x:Name="controlName" Grid.Row="gridrow" Grid.Column="gridcol" />';
 
     const lines = input.replace('\r\n', '\n').split('\n');
-    // console.log(lines);
     const output: string[] = [];
 
-    let row = 1;
-    const col = 1; // twoColumn ? 1 : 2;
+    let row = isNaN(firstRow) || firstRow < 0 ? 0 : +firstRow;
+    const col = isNaN(firstColumn) || firstColumn < 0 ? 0 : firstColumn;
     const rowOffset = twoColumn ? 0 : 1;
     const colOffset = twoColumn ? 1 : 0;
     const rowIncrement = twoColumn ? 1 : 2;
@@ -59,6 +57,7 @@ export class WpfGridService {
         controlType = 'CheckBox';
       }
 
+      // Split on camelCase, source: https://stackoverflow.com/a/54112355
       // tslint:disable-next-line: only-arrow-functions
       const label = parts[1].split(/([A-Z][a-z]+)/).filter(function(e){ return e; }).join(' ');
 

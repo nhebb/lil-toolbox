@@ -2,8 +2,7 @@
 <p>Input a C# POCO (public properties only) and generate a baseline XAML grid. The default control type is TextBox.
    DateTimes will generate a DatePicker, and bools will generate a CheckBox, but for other
    data types you will need to manually change the control type. The grid rows are created
-   in the order that they appear in the class. Row and Column numbering starts at 1, based on my personal preference
-   to use the first row and column as a margin.</p>
+   in the order that they appear in the class. First Row and Column numbering defaults to 0.</p>
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
    <div class="row">
       <div class="col-6">
@@ -16,7 +15,7 @@
       </div>
    </div>
    <div class="row">
-      <div class="col-6">
+      <div class="col-3">
          <h6>Label placement:</h6>
          <div class="form-check">
             <input class="form-check-input" type="radio" formControlName="labelPlacement" id="labelPlacementLeft" value="left" checked>
@@ -25,6 +24,20 @@
          <div class="form-check">
             <input class="form-check-input" type="radio" formControlName="labelPlacement" id="labelPlacementAbove" value="above">
             <label class="form-check-label" for="labelPlacementAbove">Above control (single column)</label>
+         </div>
+      </div>
+      <div class="col-3">
+         <div class="form-group row">
+            <label class="col-sm-6 col-form-label" for="firstRow">First Row #:</label>
+            <div class="col-sm-6">
+               <input class="form-control" type="number" formControlName="firstRow" id="firstRow">
+            </div>
+         </div>
+         <div class="form-group row">
+            <label class="col-sm-6 col-form-label" for="firstColumn">First Column #:</label>
+            <div class="col-sm-6">
+               <input class="form-control" type="number" formControlName="firstColumn" id="firstColumn">
+            </div>
          </div>
       </div>
       <div class="col-6 text-right">

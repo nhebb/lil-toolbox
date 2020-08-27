@@ -17,6 +17,8 @@ export class GridFromClassComponent implements OnInit {
     this.myForm  = this.fb.group({
       inputText: ['', Validators.required],
       labelPlacement: ['left', Validators.required],
+      firstRow: ['0', Validators.required],
+      firstColumn: ['0', Validators.required],
       outputText: ['']
     });
   }
@@ -24,9 +26,9 @@ export class GridFromClassComponent implements OnInit {
   onSubmit(): void {
     const input =  this.myForm.value.inputText;
     const twoColumn = this.myForm.value.labelPlacement === 'left';
-    // console.log(`input: ${input}`);
-    const result = this.gridService.createGridFromClass(input, twoColumn);
-    // console.log('result:\n' + result);
+    const firstRow = this.myForm.value.firstRow;
+    const firstColumn = this.myForm.value.firstColumn;
+    const result = this.gridService.createGridFromClass(input, twoColumn, firstRow, firstColumn);
     this.myForm.patchValue({outputText: result});
   }
 
