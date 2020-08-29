@@ -40,7 +40,7 @@
             </div>
          </div>
       </div>
-      <div class="col-6 text-right">
+      <div class="col-6 text-right" *ngIf="myForm.value.outputText.length > 0">
          <button type="button" class="btn btn-success" (click)="copyText(outputElement)">Copy to Clipboard</button>
       </div>
    </div>
