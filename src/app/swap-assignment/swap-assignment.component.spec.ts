@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SwapAssignmentComponent } from './swap-assignment.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('SwapAssignmentComponent', () => {
   let component: SwapAssignmentComponent;
@@ -8,6 +9,7 @@ describe('SwapAssignmentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ ReactiveFormsModule ],
       declarations: [ SwapAssignmentComponent ]
     })
     .compileComponents();
@@ -23,7 +25,7 @@ describe('SwapAssignmentComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should swap around = accurately', () => {
+  it('should swap around equals sign', () => {
     const input = 'person.Weight = weight;';
     const expectedResult = 'weight = person.Weight;';
     const result = component.swapAssignment(input);

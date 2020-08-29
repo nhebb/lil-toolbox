@@ -5,15 +5,6 @@ import { GridFromClassService } from './grid-from-class.service';
 describe('GridFromClassService', () => {
   let service: GridFromClassService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(GridFromClassService);
-  });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-
   const classInput =
   `public class Person
   {
@@ -47,5 +38,15 @@ describe('GridFromClassService', () => {
     const result = service.createGridFromClass(classInput, false, 1, 1);
     expect(result).toContain(expectedLabel);
     expect(result).toContain(expectedTextbox);
+  });
+
+  it('should create DatePicker for DateTime', () => {
+    const result = service.createGridFromClass(classInput, true, 0, 0);
+    expect(result).toContain('<DatePicker x:Name="DateOfBirth"');
+  });
+
+  it('should create CheckBox for bool', () => {
+    const result = service.createGridFromClass(classInput, true, 0, 0);
+    expect(result).toContain('<CheckBox x:Name="Registered"');
   });
 });

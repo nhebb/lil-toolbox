@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BackingPropsComponent } from './backing-props.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('BackingPropsComponent', () => {
   let component: BackingPropsComponent;
@@ -8,6 +9,7 @@ describe('BackingPropsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ ReactiveFormsModule ],
       declarations: [ BackingPropsComponent ]
     })
     .compileComponents();

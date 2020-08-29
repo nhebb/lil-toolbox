@@ -18,7 +18,7 @@ export class GridOffsetComponent implements OnInit {
       inputText: ['', Validators.required],
       outputText: [''],
       direction: ['Row', Validators.required],
-      offset: ['1', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      offset: ['1', [Validators.required, Validators.pattern('^-?[0-9]*$')]],
       startIndex: ['1', [Validators.required, Validators.pattern('^[0-9]*$')]]
     });
   }

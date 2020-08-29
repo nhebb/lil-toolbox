@@ -32,7 +32,10 @@ export class BackingPropsService {
 
       for (const line of lines) {
           const txt = line.trim();
-          if (txt.length === 0 || txt.indexOf('//') === 0  || txt.indexOf('/*') === 0) {
+          if (txt.length === 0
+            || txt.indexOf('//') === 0
+            || txt.indexOf('/*') === 0
+            || txt.indexOf('<Label') >= 0) {
               continue;
           }
 
@@ -49,8 +52,7 @@ export class BackingPropsService {
               if (txt.indexOf('<DatePick') === 0) {
                   dataType = 'DateTime';
               }
-              else if (txt.indexOf('<CheckBox') === 0 ||
-                       txt.indexOf('<RadioButton') === 0) {
+              else if (txt.indexOf('<CheckBox') === 0) {
                   dataType = 'bool';
               }
               else if (txt.indexOf('<Button') === 0) {
@@ -105,7 +107,7 @@ export class BackingPropsService {
 
   private generateButtonCode(item: ViewModelItem, output: string[])
   {
-      output.push('public bool Can' + item.name + '}()');
+      output.push('public bool Can' + item.name + '()');
       output.push('{');
       output.push('    throw new NotImplementedException();');
       output.push('}');
@@ -131,7 +133,7 @@ export class BackingPropsService {
         selectedItemProperty = selectedItemProperty.substring(0, selectedItemProperty.length);
     }
 
-    output.push('private BindableCollection<' + item.dataType + '> ' + 'collectionBackingField;');
+    output.push('private BindableCollection<' + item.dataType + '> ' + collectionBackingField + ';');
     output.push('public BindableCollection<' + item.dataType + '> ' + item.name);
     output.push('{');
     output.push(indent + 'get { return ' + collectionBackingField + '; }');

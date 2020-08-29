@@ -17,8 +17,8 @@ export class GridFromClassComponent implements OnInit {
     this.myForm  = this.fb.group({
       inputText: ['', Validators.required],
       labelPlacement: ['left', Validators.required],
-      firstRow: ['0', Validators.required],
-      firstColumn: ['0', Validators.required],
+      firstRow: ['0', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      firstColumn: ['0', [Validators.required, Validators.pattern('^[0-9]*$')]],
       outputText: ['']
     });
   }

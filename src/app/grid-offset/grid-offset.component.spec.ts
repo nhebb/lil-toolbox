@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GridOffsetComponent } from './grid-offset.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('GridOffsetComponent', () => {
   let component: GridOffsetComponent;
@@ -8,6 +9,7 @@ describe('GridOffsetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ ReactiveFormsModule ],
       declarations: [ GridOffsetComponent ]
     })
     .compileComponents();
