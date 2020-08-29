@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { WpfGridService } from '../shared/wpf-grid.service';
+import { GridOffsetService } from './grid-offset.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -11,9 +11,9 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 export class GridOffsetComponent implements OnInit {
   myForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private gridService: WpfGridService) {}
+  constructor(private fb: FormBuilder, private offsetService: GridOffsetService) {}
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.myForm = this.fb.group({
       inputText: ['', Validators.required],
       outputText: [''],
@@ -29,7 +29,7 @@ export class GridOffsetComponent implements OnInit {
     const offset = this.myForm.value.offset;
     const startIndex = this.myForm.value.startIndex;
 
-    const result = this.gridService.applyOffset(input, direction, offset, startIndex);
+    const result = this.offsetService.applyOffset(input, direction, offset, startIndex);
     this.myForm.patchValue({outputText: result});
   }
 
@@ -39,5 +39,4 @@ export class GridOffsetComponent implements OnInit {
     document.execCommand('copy');
     outputElement.setSelectionRange(0, 0);
   }
-
 }

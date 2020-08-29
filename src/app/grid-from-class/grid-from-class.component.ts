@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { WpfGridService } from '../shared/wpf-grid.service';
+import { GridFromClassService } from './grid-from-class.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -11,7 +11,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 export class GridFromClassComponent implements OnInit {
   myForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private gridService: WpfGridService) {}
+  constructor(private fb: FormBuilder, private gridService: GridFromClassService) {}
 
   ngOnInit(): void {
     this.myForm  = this.fb.group({

@@ -24,7 +24,7 @@ export class SwapAssignmentComponent implements OnInit {
     this.myForm.patchValue({outputText: result});
   }
 
-  private swapAssignment(input: string): string {
+  public swapAssignment(input: string): string {
     const output: string[] = [];
     const lines = input.replace('\r\n', '\n').split('\n');
     for (const line of lines) {

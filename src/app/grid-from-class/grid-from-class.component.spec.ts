@@ -22,4 +22,7 @@ describe('GridFromClassComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // Note: All relevant tests for this component are in wpf-grid-service.spec.ts
+
 });

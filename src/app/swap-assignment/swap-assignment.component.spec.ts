@@ -22,4 +22,11 @@ describe('SwapAssignmentComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should swap around = accurately', () => {
+    const input = 'person.Weight = weight;';
+    const expectedResult = 'weight = person.Weight;';
+    const result = component.swapAssignment(input);
+    expect(result).toContain(expectedResult);
+  });
 });
