@@ -20,7 +20,7 @@ public class Person
 }
 ```
 
-Sample output:
+Sample output for two-column layout with first row and column set to 1:
 ```
 <Label Grid.Row="1" Grid.Column="1" Content="Id" />
 <TextBox x:Name="Id" Grid.Row="1" Grid.Column="2" />
@@ -79,7 +79,7 @@ Sample input:
 <Label Grid.Row="4" Grid.Column="1" Content="Registered" />
 <CheckBox x:Name="Registered" Grid.Row="4" Grid.Column="2" />
 <Label Grid.Row="5" Grid.Column="1" Content="Favorite Foods" />
-<TextBox x:Name="FavoriteFoods" Grid.Row="5" Grid.Column="2" />
+<ListBox x:Name="FavoriteFoods" Grid.Row="5" Grid.Column="2" />
 <Button x:Name="Save" Grid.Row="6" Grid.Column="1">Save</Button>
 ```
 
@@ -141,21 +141,32 @@ public bool Registered
     }
 }
 
-private string _favoriteFoods;
-public string FavoriteFoods
+private BindableCollection<FavoriteFoods> _favoriteFoods;
+public BindableCollection<FavoriteFoods> FavoriteFoods
 {
     get { return _favoriteFoods; }
     set
     {
-        if(_favoriteFoods != value)
+        _favoriteFoods = value;
+        NotifyOfPropertyChange(() => FavoriteFoods);
+    }
+}
+
+private FavoriteFoods _selectedFavoriteFoods;
+public FavoriteFoods SelectedFavoriteFoods
+{
+    get { return _selectedFavoriteFoods; }
+    set
+    {
+        if(_selectedFavoriteFoods != value)
         {
-            _favoriteFoods = value;
-            NotifyOfPropertyChange(() => FavoriteFoods);
+            _selectedFavoriteFoods = value;
+            NotifyOfPropertyChange(() => SelectedFavoriteFoods);
         }
     }
 }
 
-public bool CanSave}()
+public bool CanSave()
 {
     throw new NotImplementedException();
 }
@@ -164,7 +175,6 @@ public void Save()
 {
     throw new NotImplementedException();
 }
-
 ```
 
 ## Swap Assignment
